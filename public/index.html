@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="initial-scale=1,minimum-scale=1,width=device-width">
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("gemini-vault.theme");
+        if (stored === "light" || stored === "dark") {
+          document.documentElement.dataset.theme = stored;
+        }
+      } catch (e) { }
+    })();
+  </script>
+  <link rel="stylesheet" href="/app.css" />
+  <title>Jokemini</title>
+</head>
+
+<body>
+  <aside id="sidebar">
+    <button id="new-dialog" type="button" title="New dialog">+ New dialog</button>
+    <h2 class="sidebar-section">Recent</h2>
+    <ul id="dialog-list"></ul>
+  </aside>
+
+  <div id="sidebar-backdrop"></div>
+
+  <main>
+    <header>
+      <button id="sidebar-toggle" type="button" aria-label="Toggle dialogs" aria-expanded="false">
+        <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <div id="header-title">Jokemini</div>
+      <button id="theme-toggle" type="button" aria-label="Toggle color theme" title="Toggle color theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41">
+          </path>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </header>
+
+    <div id="conversation" class="empty">
+      <div id="empty-state">
+        <h1>Jokemini</h1>
+        <p class="tagline">Your inquiry is sent to a secure backend that injects a private system prompt before
+          calling
+          Gemini.</p>
+        <p class="hint">Ask something to get started…</p>
+      </div>
+    </div>
+
+    <form id="chat-form">
+      <fieldset id="debug-flags" class="debug-flags" aria-label="Debug guard flags">
+        <label><input type="checkbox" id="flag-guard" /> Guard prompt</label>
+        <label><input type="checkbox" id="flag-classifier" /> Classifier</label>
+      </fieldset>
+      <textarea id="message" placeholder="Type your inquiry here…" required></textarea>
+      <button id="submit" type="submit">Send</button>
+    </form>
+  </main>
+
+  <script type="module" src="/app.js"></script>
+</body>
+
+</html>

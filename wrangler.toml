@@ -1,0 +1,33 @@
+name = "jokemini"
+main = "src/worker.ts"
+compatibility_date = "2025-07-18"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+# Bundle prompt .md files as string imports (used for guard/classifier prompts).
+[[rules]]
+type = "Text"
+globs = ["**/*.md"]
+fallthrough = true
+
+# Secrets are set via: wrangler secret put GEMINI_API_KEY
+# and:                 wrangler secret put SYSTEM_PROMPT
+# Do NOT put real values here — this file is committed to source control.
+
+[vars]
+GEMINI_MODEL = "gemini-3.1-flash-lite"
+GUARDRAIL_CLASSIFIER_MODEL = "gemini-3.1-flash-lite"
+# GEMINI_MODEL = "gemini-3.1-flash-lite"
+# GUARDRAIL_CLASSIFIER_MODEL = "gemini-3.1-flash-lite"
+
+# Prompt-leak protection layers. Disable individually for testing only.
+GUARD_PROMPT_ENABLED = true
+GUARDRAIL_CLASSIFIER_ENABLED = true
+
+# When true, the chat handler honors per-request guardPrompt/classifier overrides
+# from the request body. Flip to false before deploying to prod.
+DEBUG_CLIENT_OVERRIDES = true
